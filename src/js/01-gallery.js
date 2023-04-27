@@ -30,4 +30,3 @@ let gallery = new SimpleLightbox('.gallery a', {
 gallery.on('show.simplelightbox', function () {});
 
 console.log(galleryItems);
-console.log('hello');
