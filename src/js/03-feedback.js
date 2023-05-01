@@ -3,8 +3,8 @@
 // після перезавантаження внести дані з локалу(якщо там є ) в поля форми;
 // стерти поля форми та вивести в консоль значення полів під час сaбміту;
 // тротле добавити.
+import throttle from 'lodash.throttle';
 
-// const throttle= require('lodash.throttle');
 const feedbackFormRef = document.querySelector('.feedback-form');
 const input = document.querySelector('input');
 const textArea = document.querySelector('textarea');
@@ -30,7 +30,7 @@ const load = key => {
   }
 };
 
-feedbackFormRef.addEventListener('input', getCurrentValueOfForm);
+feedbackFormRef.addEventListener('input', throttle(getCurrentValueOfForm, 500));
 
 function getCurrentValueOfForm(e) {
   const nameField = e.target.tagName;
@@ -77,12 +77,3 @@ function clearForm() {
   textArea.value = '';
 }
 
-import throttle from 'lodash.throttle';
-const throttledOnPlay = _.throttle(function () {
-  console.log('Function throttled!');
-}, 1000);
-throttledOnPlay();
-
-// Створіть const (наприклад updateTimeThrottle) яка буде дорівнювати throttle(updateTime, 1000);
-// Та прописати ось такий рядок
-// player.on('timeupdate', updateTimeThrottle);
