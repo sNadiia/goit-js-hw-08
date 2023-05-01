@@ -1,6 +1,7 @@
 import Player from '@vimeo/player';
 
 import throttle from 'lodash.throttle';
+// const throttle= require('lodash.throttle');
 
 const iframe = document.getElementById('vimeo-player');
 const player = new Player(iframe);
@@ -27,6 +28,7 @@ const load = key => {
 
 const onPlay = function (e) {
   const currentTime = e.seconds;
+
 
   console.log('video played!');
   duration: 61.857;

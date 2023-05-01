@@ -4,6 +4,7 @@
 // стерти поля форми та вивести в консоль значення полів під час сaбміту;
 // тротле добавити.
 
+// const throttle= require('lodash.throttle');
 const feedbackFormRef = document.querySelector('.feedback-form');
 const input = document.querySelector('input');
 const textArea = document.querySelector('textarea');
@@ -69,9 +70,19 @@ function handleSubmit(e) {
 }
 
 function clearStorage() {
-  save(STORAGE_KEY, '');
+  localStorage.removeItem(STORAGE_KEY);
 }
 function clearForm() {
   input.value = '';
   textArea.value = '';
 }
+
+import throttle from 'lodash.throttle';
+const throttledOnPlay = _.throttle(function () {
+  console.log('Function throttled!');
+}, 1000);
+throttledOnPlay();
+
+// Створіть const (наприклад updateTimeThrottle) яка буде дорівнювати throttle(updateTime, 1000);
+// Та прописати ось такий рядок
+// player.on('timeupdate', updateTimeThrottle);
