@@ -51,11 +51,11 @@ window.addEventListener('DOMContentLoaded', fillFromStorage);
 function fillFromStorage(e) {
   const currentState = load(STORAGE_KEY);
 
-  if (currentState.email !== undefined) {
+  if (currentState.email) {
     input.value = currentState.email;
   }
 
-  if (currentState.message !== undefined) {
+  if (currentState.message) {
     textArea.value = currentState.message;
   }
 }
@@ -76,4 +76,3 @@ function clearForm() {
   input.value = '';
   textArea.value = '';
 }
-
