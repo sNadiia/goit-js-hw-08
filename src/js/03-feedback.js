@@ -34,15 +34,21 @@ feedbackFormRef.addEventListener('input', throttle(getCurrentValueOfForm, 500));
 
 function getCurrentValueOfForm(e) {
   const nameField = e.target.tagName;
-  const valueOfField = e.target.value;
+  const valueOfField = e.target.value.trim();
 
-  if (nameField === 'INPUT') {
-    currentValueOfForm.email = valueOfField;
-    save(STORAGE_KEY, currentValueOfForm);
-  } else {
-    if (nameField === 'TEXTAREA') {
-      currentValueOfForm.message = valueOfField;
+  if (valueOfField === '') {
+    alert('Потрібно ввести текст!');
+    return;
+  }
+  {
+    if (nameField === 'INPUT') {
+      currentValueOfForm.email = valueOfField;
       save(STORAGE_KEY, currentValueOfForm);
+    } else {
+      if (nameField === 'TEXTAREA') {
+        currentValueOfForm.message = valueOfField;
+        save(STORAGE_KEY, currentValueOfForm);
+      }
     }
   }
 }
@@ -64,14 +70,14 @@ button.addEventListener('click', handleSubmit);
 function handleSubmit(e) {
   e.preventDefault();
   console.log(load(STORAGE_KEY));
-
   clearStorage();
   clearForm();
 }
 
 function clearStorage() {
-  localStorage.removeItem(STORAGE_KEY);
+  save(STORAGE_KEY, {});
 }
+
 function clearForm() {
   input.value = '';
   textArea.value = '';
