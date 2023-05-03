@@ -12,6 +12,9 @@ const button = document.querySelector('button');
 const STORAGE_KEY = 'feedback-form-state';
 const currentValueOfForm = {};
 
+let IfFillEmail = false;
+let IfFillMessage = false;
+
 const save = (key, value) => {
   try {
     const serializedState = JSON.stringify(value);
@@ -43,10 +46,14 @@ function getCurrentValueOfForm(e) {
   {
     if (nameField === 'INPUT') {
       currentValueOfForm.email = valueOfField;
+      IfFillEmail = true;
+      // console.log(IfFillEmail);
       save(STORAGE_KEY, currentValueOfForm);
     } else {
       if (nameField === 'TEXTAREA') {
         currentValueOfForm.message = valueOfField;
+        IfFillMessage = true;
+        // console.log(IfFillMessage);
         save(STORAGE_KEY, currentValueOfForm);
       }
     }
@@ -56,6 +63,8 @@ function getCurrentValueOfForm(e) {
 window.addEventListener('DOMContentLoaded', fillFromStorage);
 function fillFromStorage(e) {
   const currentState = load(STORAGE_KEY);
+  IfFillMessage = true;
+  IfFillEmail = true;
 
   if (currentState.email) {
     input.value = currentState.email;
@@ -69,9 +78,16 @@ function fillFromStorage(e) {
 button.addEventListener('click', handleSubmit);
 function handleSubmit(e) {
   e.preventDefault();
-  console.log(load(STORAGE_KEY));
-  clearStorage();
-  clearForm();
+  if (IfFillMessage && IfFillEmail) {
+    console.log(load(STORAGE_KEY));
+    clearStorage();
+    clearForm();
+    IfFillMessage = false;
+    IfFillEmail = false;
+  } else {
+    alert('Незаповнені поля! Введіть дані!');
+    return;
+  }
 }
 
 function clearStorage() {
