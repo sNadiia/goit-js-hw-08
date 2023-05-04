@@ -12,8 +12,14 @@ const button = document.querySelector('button');
 const STORAGE_KEY = 'feedback-form-state';
 const currentValueOfForm = {};
 
-let IfFillEmail = false;
-let IfFillMessage = false;
+let IsFillEmail = false;
+let IsFillMessage = false;
+// console.log(IsFillEmail);
+// console.log(IsFillMessage);
+// console.dir(input);
+// console.log(input.value);
+// console.dir(textArea);
+// console.log(textArea.value);
 
 const save = (key, value) => {
   try {
@@ -46,13 +52,13 @@ function getCurrentValueOfForm(e) {
   {
     if (nameField === 'INPUT') {
       currentValueOfForm.email = valueOfField;
-      IfFillEmail = true;
+      IsFillEmail = true;
       // console.log(IfFillEmail);
       save(STORAGE_KEY, currentValueOfForm);
     } else {
       if (nameField === 'TEXTAREA') {
         currentValueOfForm.message = valueOfField;
-        IfFillMessage = true;
+        IsFillMessage = true;
         // console.log(IfFillMessage);
         save(STORAGE_KEY, currentValueOfForm);
       }
@@ -63,27 +69,32 @@ function getCurrentValueOfForm(e) {
 window.addEventListener('DOMContentLoaded', fillFromStorage);
 function fillFromStorage(e) {
   const currentState = load(STORAGE_KEY);
-  IfFillMessage = true;
-  IfFillEmail = true;
 
   if (currentState.email) {
     input.value = currentState.email;
   }
+  // console.log(input.value);
 
   if (currentState.message) {
     textArea.value = currentState.message;
+  }
+  // console.log(textArea.value);
+
+  if (input.value && textArea.value) {
+    IsFillMessage = true;
+    IsFillEmail = true;
   }
 }
 
 button.addEventListener('click', handleSubmit);
 function handleSubmit(e) {
   e.preventDefault();
-  if (IfFillMessage && IfFillEmail) {
+  if (IsFillMessage && IsFillEmail) {
     console.log(load(STORAGE_KEY));
     clearStorage();
     clearForm();
-    IfFillMessage = false;
-    IfFillEmail = false;
+    IsFillMessage = false;
+    IsFillEmail = false;
   } else {
     alert('Незаповнені поля! Введіть дані!');
     return;
@@ -98,3 +109,7 @@ function clearForm() {
   input.value = '';
   textArea.value = '';
 }
+// console.dir(input);
+// console.log(input.value);
+// console.dir(textArea);
+// console.log(textArea.value);
