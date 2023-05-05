@@ -25,7 +25,7 @@ const load = key => {
 
 feedbackFormRef.addEventListener(
   'input',
-  throttle(saveDataInLocaleStorage, 500, (leading = false))
+  throttle(saveDataInLocaleStorage, 500)
 );
 window.addEventListener('DOMContentLoaded', fillFromStorage);
 feedbackFormRef.addEventListener('submit', handleSubmit);
